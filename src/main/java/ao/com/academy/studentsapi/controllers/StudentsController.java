@@ -1,7 +1,6 @@
 package ao.com.academy.studentsapi.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ao.com.academy.studentsapi.domain.Student;
+import ao.com.academy.studentsapi.exceptions.StudentNotFoundException;
 import ao.com.academy.studentsapi.repository.StudentsRepository;
+
 
 
 
@@ -23,13 +24,13 @@ public class StudentsController {
     @Autowired
     StudentsRepository studentsRepository;
 
-    //Get All Students
+    // Get All Students
     @GetMapping("/students")
     public List<Student> getStudents() {
         return studentsRepository.findAll();
     }
 
-    //Create new student
+    // Create new student
     @PostMapping("/new/student")
     public void createStudent(@RequestBody Student student) {
         studentsRepository.save(student);
@@ -37,8 +38,8 @@ public class StudentsController {
 
     // Find a single student
     @GetMapping("/student/{id}")
-    public Optional<Student> findById(@PathVariable(value="id") Long studentID) {
-        return studentsRepository.findById(studentID);
+    public Student findById(@PathVariable(value="id") Long studentID) throws StudentNotFoundException {
+        return studentsRepository.findById(studentID).orElseThrow(() -> new StudentNotFoundException(studentID));
     }
     
     
