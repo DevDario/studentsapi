@@ -25,4 +25,8 @@ public class Student {
     private String name;
     @Column(name="email")
     private String email;
+
+    public Student(){
+        super();
+    }    
 }
