@@ -3,6 +3,8 @@ package ao.com.academy.studentsapi.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,6 +58,16 @@ public class StudentsController {
         Student newStudent = studentsRepository.save(student);
 
         return newStudent;
+    }
+
+    // Delete Student
+    @DeleteMapping("/delete/student/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable(value="id") Long studentID) throws StudentNotFoundException{
+        Student student = studentsRepository.findById(studentID).orElseThrow(() -> new StudentNotFoundException(studentID));
+
+        studentsRepository.delete(student);
+
+        return ResponseEntity.ok().build();
     }
     
     
