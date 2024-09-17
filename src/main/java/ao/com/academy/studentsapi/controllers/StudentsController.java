@@ -19,7 +19,7 @@ import ao.com.academy.studentsapi.repository.StudentsRepository;
 
 
 @RestController
-@RequestMapping("/controller")
+@RequestMapping
 public class StudentsController {
     
     @Autowired
