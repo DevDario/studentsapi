@@ -38,7 +38,7 @@ public class StudentsController {
     }
 
     // Find a single student
-    @GetMapping("/student/{id}")
+    @GetMapping("/search/student/{id}")
     public Student findById(@PathVariable(value="id") Long studentID) throws StudentNotFoundException {
         return studentsRepository.findById(studentID).orElseThrow(() -> new StudentNotFoundException(studentID));
     }
